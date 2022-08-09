@@ -109,7 +109,7 @@ router.get("/films/:filmId", function(req, res){
  router.get("/sol1", function (req, res) {
     //logic : sum of numbers is n(n+1)/2..so get sum of all numbers in array. now take sum of numbers till last digit in the array
     let arr= [1,2,3,5,6,7]
-    let n = arr.pop()
+    let n = arr.length + 1
     let sumOfNumbers = [n*(arr[0]+arr[arr.length-1])]/2
     let sumOfArray = 0;
     for(let i = 0; i < arr.length; i++){
