@@ -120,6 +120,22 @@ let players =
 })
 
 
+let myArr = [10,67,880,456,34,78,90,576]
+router.post("/post-query-2",function(req,res){
+     
+    let elementNo = req.query.elementNo
+    
+    console.log(myArr)
+    console.log(elementNo)
+    let finalArr = []
 
+    for(let i = 0; i < myArr.length; i++){
+        if(myArr[i] > elementNo) {
+            finalArr.push(myArr[i])
+        }
+    }
+    console.log(finalArr)
+    res.send({data : finalArr, status : true})
+})
 
 module.exports = router;
