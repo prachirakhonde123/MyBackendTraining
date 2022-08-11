@@ -146,58 +146,87 @@ router.post("/post-query-2",function(req,res){
 
 //Assignment2 : Booking ID
 
-// let players1 =
-// [
-//     {
-//         "name": "manish",
-//         "dob": "1/1/1995",
-//         "gender": "male",
-//         "city": "jalandhar",
-//         "sports": [
-//             "swimming"
-//         ],
-        
+let players1 =
+[
+    {
+        "name": "manish",
+        "dob": "1/1/1995",
+        "gender": "male",
+        "city": "jalandhar",
+        "sports": [
+            "swimming"
+        ],
+        "personId": "12"
+    },
+    {
+        "name": "gopal",
+        "dob": "1/09/1995",
+        "gender": "male",
+        "city": "delhi",
+        "sports": [
+            "soccer"
+        ],
+        "personId": "15"
+    },
+    {
+        "name": "lokesh",
+        "dob": "1/1/1990",
+        "gender": "male",
+        "city": "mumbai",
+        "sports": [
+            "soccer"
+        ],
+        "personId" : "20"
+    },
+]
 
-//     },
-//     {
-//         "name": "gopal",
-//         "dob": "1/09/1995",
-//         "gender": "male",
-//         "city": "delhi",
-//         "sports": [
-//             "soccer"
-//         ]
-//     },
-//     {
-//         "name": "lokesh",
-//         "dob": "1/1/1990",
-//         "gender": "male",
-//         "city": "mumbai",
-//         "sports": [
-//             "soccer"
-//         ]
-//     },
-// ]
+router.get('/newplayers/:name/:id',function(req,res){
 
-// router.get('/players/:name/booking/:id',function(req,res){
+    let nameOfPlayer = req.params.name
+    let statusOfBooking = req.params.id
+    let details = req.body
+    let flagForName = false
+    let flagForId = false
+    let i = 0;
+    for( i = 0; i < players1.length; i++){
+        let person = players1[i]
+        if(person.name == nameOfPlayer){
+            var j = i
+            flagForName = true
+            break
+        }
+    }
 
-//     let nameOfPlayer = req.params.name
-//     let statusOfBooking = req.params.id
+    for(let k = 0;k < players1.length; k++){
+        let person1 = players1[k]
+        if(person1.personId == statusOfBooking){
+            flagForId = true
+            break
+        }
+    }
 
-//     for(let i = 0; i < players1.length; i++){
-//         let person = players1[i]
+    if(flagForId == false && flagForName == true){
+        players1[j].personId = details
+        res.send({data:players1,status:true})
+    }
 
-//         if(person.name == nameOfPlayer){
-//             if(person.booking == statusOfBooking){
-//                 res.send("Booking status is already done")
-//             }
-//         }
-//     }
-// })
+    else if(flagForName == false){
+        res.send("Person doesn't exists!")
+    }
+
+    else if(flagForName == true && flagForId == true){
+        res.send("BookingId is already given")
+    }
+
+    console.log("Code is running")
+   
+})
 
 ///////////////////////////////////////////////////////////////////////////
 
 /// Voting ID
+// Take input in an query params as votingAge and for all the people above that age,change
+// votingStatus as true .Also return array consisting of only the person that can vote
 
 let persons = [
     {
@@ -227,20 +256,20 @@ let persons = [
     }
 ]
 
-router.get('/voting', function(req,res){
+router.post('/voting', function(req,res){
     let status = req.query.myAge
     let arr = []
 
     for(let i = 0; i < persons.length; i++){
         let iperson = persons[i]
 
-        if(iperson.age >= status){
+        if(iperson.age > status){
             iperson.votingStatus = true
             arr.push(iperson)
         }
     }
 
-    res.send({data : arr, status : true})
+    res.send({data : arr, status : "Above people are eligible for voting!"})
 })
 
 
