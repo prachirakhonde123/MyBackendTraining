@@ -139,4 +139,109 @@ router.post("/post-query-2",function(req,res){
     res.send({data : finalArr, status : true})
 })
 
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+//Assignment2 : Booking ID
+
+// let players1 =
+// [
+//     {
+//         "name": "manish",
+//         "dob": "1/1/1995",
+//         "gender": "male",
+//         "city": "jalandhar",
+//         "sports": [
+//             "swimming"
+//         ],
+        
+
+//     },
+//     {
+//         "name": "gopal",
+//         "dob": "1/09/1995",
+//         "gender": "male",
+//         "city": "delhi",
+//         "sports": [
+//             "soccer"
+//         ]
+//     },
+//     {
+//         "name": "lokesh",
+//         "dob": "1/1/1990",
+//         "gender": "male",
+//         "city": "mumbai",
+//         "sports": [
+//             "soccer"
+//         ]
+//     },
+// ]
+
+// router.get('/players/:name/booking/:id',function(req,res){
+
+//     let nameOfPlayer = req.params.name
+//     let statusOfBooking = req.params.id
+
+//     for(let i = 0; i < players1.length; i++){
+//         let person = players1[i]
+
+//         if(person.name == nameOfPlayer){
+//             if(person.booking == statusOfBooking){
+//                 res.send("Booking status is already done")
+//             }
+//         }
+//     }
+// })
+
+///////////////////////////////////////////////////////////////////////////
+
+/// Voting ID
+
+let persons = [
+    {
+        name : "PK",
+        age : 10,
+        votingStatus : false
+    },
+    {
+        name : "SK",
+        age : 20,
+        votingStatus : false
+    },
+    {
+        name : "AA",
+        age : 70,
+        votingStatus : false
+    },
+    {
+        name : "SC",
+        age : 5,
+        votingStatus : false
+    },
+    {
+        name : "HO",
+        age : 45,
+        votingStatus : false
+    }
+]
+
+router.get('/voting', function(req,res){
+    let status = req.query.myAge
+    let arr = []
+
+    for(let i = 0; i < persons.length; i++){
+        let iperson = persons[i]
+
+        if(iperson.age >= status){
+            iperson.votingStatus = true
+            arr.push(iperson)
+        }
+    }
+
+    res.send({data : arr, status : true})
+})
+
+
 module.exports = router;
