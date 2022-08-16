@@ -7,8 +7,8 @@ const createBook = async function(req,res){
 }
 
 const bookList = async function(req,res){
-    let myList = await BookModel2.find().select({bookName : 1, authorName : 1})
-    res.send({msg : savedData})    
+    let myList = await BookModel2.find().select({bookName : 1, authorName : 1, _id : 0})
+    res.send({msg : myList})    
 }
 
 module.exports.createBookPublic = createBook
