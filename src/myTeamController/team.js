@@ -7,7 +7,7 @@ const createPlayerData = async function(req,res){
 }
 
 const getPlayerData = async function(req,res){
-    let displayPlayer = await Cricket_com.find()
+    let displayPlayer = await Cricket_com.find({"category":"Batsman"})
     res.send({PlayerList: displayPlayer})
 }
 
