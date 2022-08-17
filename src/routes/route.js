@@ -1,6 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
+//----------------------------------------------------------------------------
+const dataModel = require("../models/book")
+const dataModel2 = require("../models/author")
+const newBookAuthorController = require("../controllers/authorController")
+//------------------------------------------------------------------------------
+
 // const UserModel= require("../models/userModel.js")
 //const UserController= require("../controllers/userController")
 
@@ -18,15 +24,15 @@ router.get("/test-me", function (req, res) {
 })
 
 //---------------------------------------------------------------
-router.post("/createUser", UserController.createUser  )
+// router.post("/createUser", UserController.createUser)
 
-router.get("/getUsersData", UserController.getUsersData)
+// router.get("/getUsersData", UserController.getUsersData)
 //------------------------------------------------------------------
 
 //---------------------------------------------------------------------
-router.post("/createBook", BookController.createBook  )
+// router.post("/createBook", BookController.createBook  )
 
-router.get("/getBooksData", BookController.getBooksData)
+// router.get("/getBooksData", BookController.getBooksData)
 //--------------------------------------------------------------------
 
 //------------------------------------------------------------------
@@ -43,5 +49,17 @@ router.get("/getbookbyprice", newBookController.getbookINRPublic)
 
 router.get("/particularbook", newBookController.getParticularBooksPublic)
 //-------------------------------------------------------------------------------------
+
+// Book and Author Database Assignment , Date: 17/08/22
+
+router.post("/createbookbyid", newBookAuthorController.createBookWithId)
+
+router.post("/createauthorbyid", newBookAuthorController.createAuthorData)
+
+router.get("/booklistbyid", newBookAuthorController.booklist)
+
+router.get("/updateprice", newBookAuthorController.updatePrice)
+
+router.get("/getauthorandid", newBookAuthorController.books)
 
 module.exports = router;
