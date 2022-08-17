@@ -30,7 +30,8 @@ const getRandomBooks = async function(req,res){
 
 //equest to return all books who have an Indian price tag of “100INR” or “200INR” or “500INR” 
 const getbookINR = async function(req,res){
-    let bookByPrice = await BookModel2.find({$or:[{"prices.indianPrice":{$eq:"100INR"}},{"prices.indianPrice":{$eq:"200INR"}},{"prices.indianPrice":{$eq:"500INR"}}]})
+    //let bookByPrice = await BookModel2.find({$or:[{"prices.indianPrice":{$eq:"100INR"}},{"prices.indianPrice":{$eq:"200INR"}},{"prices.indianPrice":{$eq:"500INR"}}]})
+    let bookByPrice =await BookModel2.find({"prices.indianPrice" : {$in : ["100INR","200INR","500INR"]}})
     res.send({msg : bookByPrice})
     
 }
