@@ -14,6 +14,11 @@ const createBookWithId = async function(req,res){
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////
+
+/*List out the books written by "Chetan Bhagat" ( this will need 2 DB queries one after
+ another- first query will find the author_id for "Chetan Bhagat”.
+  Then next query will get the list of books with that author_id )
+*/
 const booklist = async function(req,res){
     let authorName = req.body
     let aid = await myAuthorModel.findOne(authorName).select({author_id : 1, _id : 0})
@@ -23,6 +28,15 @@ const booklist = async function(req,res){
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
+
+/*
+find the author of “Two states” and update the book price to 100; 
+ Send back the author_name and updated price in response.  
+( This will also need 2  queries- 1st will be a findOneAndUpdate. 
+The second will be a find query aith author_id from previous query)
+*/
+
+
 const updatePrice = async function(req,res){
     let bookname = req.body
     let authorid = await myBookModel.findOne(bookname).select({author_id : 1, _id : 0})
@@ -40,6 +54,18 @@ const updatePrice = async function(req,res){
 
 ///////////////////////////////////////////////////////////////////////////////////
 
+/*
+Find the books which costs between 50-100(50,100 inclusive) and 
+respond back with the author names of respective books.. 
+*/
+
+const books = async function(req,res){
+    let bookRange = await myBookModel.find({price : {$gt : 50, $lte : 100}})
+    let arr = bookRange.map(x => x.author_id);
+    let getname = await myAuthorModel.find({author_id : arr}).select({author_name : 1, _id : 0});
+    res.send(getname)
+}
+
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -49,4 +75,3 @@ module.exports.booklist = booklist
 module.exports.updatePrice = updatePrice
 module.exports.books = books
 
-//{$or : [{price : {$gt : 50}},{price : {$lte : 100}}]}

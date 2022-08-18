@@ -60,6 +60,8 @@ router.get("/booklistbyid", newBookAuthorController.booklist)
 
 router.get("/updateprice", newBookAuthorController.updatePrice)
 
-router.get("/getauthorandid", newBookAuthorController.books)
+router.get("/getauthorname", newBookAuthorController.books)
+
+//---------------------------------------------------------------------------
 
 module.exports = router;
