@@ -35,8 +35,10 @@ router.post("/newcreateAuthor", newauthorcontroller.createAuthor1)
 router.get("/getnewauthordata", newauthorcontroller.getnewdataPublic)
 router.post("/createpublisher", publishercontroller.createPublisher)
 router.get("/getpublisher", publishercontroller.getPublisher)
-router.post("/newbook", newbookController.bookdata)
-router.get("/getallbooks", newbookController.getBooks)
+router.get("/getallbooks", newbookController.getBooks) // to show booklist with id
+router.post("/book",newbookController.bookData1)  // to create book
+router.post("/updatecover",newbookController.updateHardCover)
+//router.put("/newpriceofbooks", newbookController.updateprice)
 
 
 //--------------------------------------------------------------------------------------
