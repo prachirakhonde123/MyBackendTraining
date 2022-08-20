@@ -7,7 +7,7 @@ const newbookSchema = new mongoose.Schema({
 
     author_id : {
         type : ObjectId,
-        required : true,
+        //required : true,
         ref : "newAuthor"
     },
 
@@ -16,7 +16,7 @@ const newbookSchema = new mongoose.Schema({
 
     publisher_id : {
         type : ObjectId,
-        required : true,
+        //required : true,
         ref : "Publisher"
     },
 

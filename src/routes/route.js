@@ -7,11 +7,17 @@ const bookController= require("../controllers/bookController")
 //--------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
+// Paths of Assignment of reference and populate
+//____________________________________________________
+
+
 const myauthor = require("../models/newAuthorSchema")
 const newauthorcontroller = require("../controllers/newAuthorcontroller") //author
 const publishercontroller = require("../controllers/publisherController") // publisher
 const newbookController = require("../controllers/newbookController") // book
+
 //-----------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 
 router.get("/test-me", function (req, res) {
     res.send("My first ever api!")
@@ -30,15 +36,15 @@ router.get("/getBooksWithAuthorDetails", bookController.getBooksWithAuthorDetail
 // Assignment APIs
 //_____________________________________
 
-
-router.post("/newcreateAuthor", newauthorcontroller.createAuthor1)
-router.get("/getnewauthordata", newauthorcontroller.getnewdataPublic)
-router.post("/createpublisher", publishercontroller.createPublisher)
-router.get("/getpublisher", publishercontroller.getPublisher)
+router.post("/newbook", newbookController.createBook) // create book not checking id
+router.post("/newcreateAuthor", newauthorcontroller.createAuthor1) // create author api
+router.get("/getnewauthordata", newauthorcontroller.getnewdataPublic) // get author api
+router.post("/createpublisher", publishercontroller.createPublisher) // create publisher api
+router.get("/getpublisher", publishercontroller.getPublisher) //get publisher api
 router.get("/getallbooks", newbookController.getBooks) // to show booklist with id
-router.post("/book",newbookController.bookData1)  // to create book
-router.post("/updatecover",newbookController.updateHardCover)
-//router.put("/newpriceofbooks", newbookController.updateprice)
+router.post("/book",newbookController.bookData1)  // to create book by checking id
+router.put("/updatecover",newbookController.updateHardCover)  // updating hardcover api
+router.put("/newpriceofbooks", newbookController.updateprice) // updating price by 10
 
 
 //--------------------------------------------------------------------------------------
