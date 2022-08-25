@@ -1,13 +1,17 @@
 const purchaserModel = require("../models/purchaserModel")
 
 const createPurchaser = async function(req,res){
-    const purchaserData = req.body
-    const headerData = req.headers.isFreeAppUser
+   const user = req.body
+   user.isFreeAppUser = req.headers.isfreeappuser
+   const userCreated = await purchaserModel.create(user);
+   res.send({msg : userCreated})
 
-    if(!headerData){
-        res.send({msg : "Error : Header is Mandatory"})
-    }
-    else{
-        const purchaserCreated = await purchaserModel
-    }
 }
+
+const getPurchaser = async function(req,res){
+    const getPurchaserList = await purchaserModel.find()
+    res.send({msg : getPurchaserList})
+}
+
+
+module.exports = {createPurchaser,getPurchaser}
