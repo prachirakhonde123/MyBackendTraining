@@ -41,16 +41,21 @@ const mid1= function ( req, res, next) {
 */
 
 // e.g. restricted and open-to-all API's can be handled like below now:
-router.get('/homePage', mid1, UserController.commonHandler)
-router.get('/profileDetails', mid1, UserController.commonHandler)
-router.get('/friendList', mid1, UserController.commonHandler)
-router.get('/changePassword', mid1, UserController.commonHandler)
+// router.get('/homePage', mid1, UserController.commonHandler)
+// router.get('/profileDetails', mid1, UserController.commonHandler)
+// router.get('/friendList', mid1, UserController.commonHandler)
+// router.get('/changePassword', mid1, UserController.commonHandler)
 
 router.get('/termsAndConditions',  UserController.commonHandler)
 router.get('/register',  UserController.commonHandler, function(req, res){
     console.log('This is last console statement')
     res.send({status: true, msg: "Am ending the cycle."})
 })
+
+router.get('/homePage',UserController.commonHandler)
+router.get('/profileDetails', UserController.commonHandler)
+router.get('/friendList', UserController.commonHandler)
+router.get('/changePassword', UserController.commonHandler)
 
 
 
