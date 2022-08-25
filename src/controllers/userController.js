@@ -20,7 +20,7 @@ const createUser= async function (req, res) {
     //Get all headers from request
     console.log("Request headers before modificatiom",req.headers)
     //Get a header from request
-    console.log(req.headers.batch)
+    console.log(req.headers["batch"])
     console.log(req.headers["content-type"])
     console.log(tokenDataInHeaders)
     //Set a header in request
