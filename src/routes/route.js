@@ -10,7 +10,7 @@ const commonMW = require ("../middlewares/commonMiddlewares")
 const {createPurchaser,getPurchaser} = require("../controllers/purchaserController")
 const product = require("../controllers/productController")
 const order = require("../controllers/orderController")
-const {purchaserMid,orderMid} = require("../middlewares/assignmentMiddleware")
+const purchaserMid = require("../middlewares/assignmentMiddleware")
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -62,10 +62,12 @@ router.get("/basicRoute", commonMW.mid1, commonMW.mid2, commonMW.mid3, commonMW.
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
 
 router.post("/createPurchaser",purchaserMid, createPurchaser)
 router.get("/getPurchaser", getPurchaser)
 router.post("/createProduct", product)
-router.post("/createOrder", orderMid, order)
+router.post("/createOrder", purchaserMid, order)
 
 module.exports = router;
