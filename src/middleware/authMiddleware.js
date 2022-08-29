@@ -12,15 +12,16 @@ const authenticate = async function(req, res, next) {
     let user = await userModel.findById(validUser)
     if(!user) return res.send({status: false, msg: 'No such user exists'})
 
-    let decodedToken = jwt.verify(token, "itisaverysecretcodezaybxc");
-    if (!decodedToken)
+    let newdecodedToken = jwt.verify(token, "itisaverysecretcodezaybxc");
+    if (!newdecodedToken)
     return res.send({ status: false, msg: "Alert : Token is invalid" });
 
     else{
-        req.decodedToken = decodedToken
+        req.decodedToken = newdecodedToken
     //     key               variable
         //  console.log("in authenticate");
-        //  console.log(decodedToken);
+         //console.log(decodedToken);
+         //console.log(req.decodedToken);
         next()
     }
 }
