@@ -66,21 +66,7 @@ const updateUser = async function (req, res) {
 };
 
 
-// To delete the user
-// const deleteUser = async function(req,res){
-//   let userId =  req.params.userId
-  
-//   let userDetails = await userModel.findById(userId);
-//   if (!userDetails)
-//     return res.send({ status: false, msg: "No such user exists" });
-
-//   let userdata = req.body
-//   let deletUser1 = await userModel.findByIdAndDelete(userId)
-//   res.send({status : true, msg : "User is deleted"})   
-// }
-
-
-// To delete user and change the key
+// To delete the user and change the flag
 const deleteUser1 = async function(req, res) {    
   let userId = req.params.userId
   let user = await userModel.findById(userId)
@@ -100,5 +86,4 @@ module.exports.createUser = createUser;
 module.exports.getUserData = getUserData;
 module.exports.updateUser = updateUser;
 module.exports.loginUser = loginUser;
-//module.exports.deleteUser = deleteUser
 module.exports.deletUser1 = deleteUser1
