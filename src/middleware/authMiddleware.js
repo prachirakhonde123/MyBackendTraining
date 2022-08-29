@@ -4,9 +4,13 @@ const userModel = require("../models/userModel")
 
 const authenticate = async function(req, res, next) {
     let token = req.headers['x-auth-token'];
+    let validUser = req.params.userId
 
     if(!token) 
     return res.send({ status: false, msg: "Token must be present" });
+    
+    let user = await userModel.findById(validUser)
+    if(!user) return res.send({status: false, msg: 'No such user exists'})
 
     let decodedToken = jwt.verify(token, "itisaverysecretcodezaybxc");
     if (!decodedToken)
@@ -32,10 +36,7 @@ const authorise = async  function(req, res, next) {
     console.log(userToBeModified); // getting id from params
     
     if(userToBeModified != userLoggedIn)
-    return res.send({status: false, msg: 'User logged is not allowed to modify the requested users data'})
-
-    let user = await userModel.findById(req.params.userId)
-    if(!user) return res.send({status: false, msg: 'No such user exists'})
+    return res.send({status: false, msg: 'User Logged In have no access to update others data'})
 
     else{
         next()
