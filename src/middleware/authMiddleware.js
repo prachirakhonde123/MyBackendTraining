@@ -2,47 +2,64 @@ const jwt = require("jsonwebtoken");
 const router = require("../routes/route");
 const userModel = require("../models/userModel")
 
+//__________________________________AUTHENTICATION____________________________________
+
+
+
 const authenticate = async function(req, res, next) {
-    let token = req.headers['x-auth-token'];
-    let validUser = req.params.userId
+    try{
+        let token = req.headers['x-auth-token'];
+        let validUser = req.params.userId
 
-    if(!token) 
-    return res.send({ status: false, msg: "Token must be present" });
-    
-    let user = await userModel.findById(validUser)
-    if(!user) return res.send({status: false, msg: 'No such user exists'})
+//____________Checking Token is Present or not______________________________
+        if(!token) 
+        return res.status(401).send({ status: false, msg: "Token must be present" });
 
-    let newdecodedToken = jwt.verify(token, "itisaverysecretcodezaybxc");
-    if (!newdecodedToken)
-    return res.send({ status: false, msg: "Alert : Token is invalid" });
 
-    else{
+//____________Checking Valid User___________________________________________
+        let userDetails = await userModel.findById(validUser);
+        if (!userDetails)
+        return res.status(401).send({ status: false, msg: "No such user exists" });
+
+//______________Verifying Token______________________________________________
+        let newdecodedToken = jwt.verify(token, "itisaverysecretcodezaybxc");
         req.decodedToken = newdecodedToken
-    //     key               variable
-        //  console.log("in authenticate");
-         //console.log(decodedToken);
-         //console.log(req.decodedToken);
         next()
+
+    }
+    
+//__________________Token is Invalid_____________________________________________    
+    catch(err){
+        res.status(401).send({msg : "Invalid Token", error : err.message})
     }
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//______________________________________AUTHORIZATION___________________________________-
 
 const authorise = async  function(req, res, next) {
-    mydecodedToken = req.decodedToken
-//  variable       taken access from authenticate middleware
-    let userToBeModified = req.params.userId    
-    let userLoggedIn = mydecodedToken.userId //taking out userId from mydecodeToken and storing it
-    console.log("In authorise");
-    console.log(mydecodedToken.userId); //get id from decoded token
-    console.log(userToBeModified); // getting id from params
-    
-    if(userToBeModified != userLoggedIn)
-    return res.send({status: false, msg: 'User Logged In have no access to update others data'})
+    try{
+        mydecodedToken = req.decodedToken
+        let userToBeModified = req.params.userId    
+        let userLoggedIn = mydecodedToken.userId
 
-    else{
+        if(userToBeModified != userLoggedIn){         
+        return res.status(403).send({msg : "Error!", error : "Unauthorized User"})
+        }
+
         next()
     }
+
+    catch(err){
+        res.status(500).send({msg : "Server Error!"})
+    }    
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 module.exports.authenticate = authenticate
 module.exports.authorise = authorise
+
+
+
