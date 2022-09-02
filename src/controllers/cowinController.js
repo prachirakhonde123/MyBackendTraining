@@ -29,7 +29,7 @@ let getDistricts = async function (req, res) {
             url: `https://cdn-api.co-vin.in/api/v2/admin/location/districts/${id}`
         }
         let result = await axios(options);
-        //console.log(result)
+        console.log(result)
         let data = result.data
         res.status(200).send({ msg: data, status: true })
     }
